@@ -1,0 +1,285 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage[compact]{titlesec}
+%\titlespacing{section}{0mm}{.5mm}{.5mm}[]
+
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Loops}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Tutorial: Loops \& Flow Control}
+
+This tutorial will involve exercises to get you accustomed to creating and
+manipulating flow control constructs.  It will move on to complex uses of
+different data structures and comparison operators.
+
+Create a \emph{program} called \verb|isthenumberbig.pro|.  As you might infer
+from the name, it will tell you if a number is big.  To create a program, open
+a file with the name as specified above (\verb|isthenumberbig.pro|) in gedit.
+Please do this in \emph{your} ASTR2600 directory that you have done 
+\verb|git init| in, \emph{not} your ASTR2600-fork directory.  If you'd like,
+you can create a \verb|tutorial| subdirectory and open the file in there.  You
+probably should.
+
+This program shall do the following:
+\begin{enumerate}
+    \item Read in a number from the user
+    \item Say ``That is a big number'' if the number is greater than 100
+    \item Repeat unless the user has input the number -1
+\end{enumerate}
+
+This program should include at least one loop construct; it is up to you to
+figure out which kind of loop (\verb|while|, \verb|repeat until|, \verb|for|)
+is most appropriate.  It should include an \verb|if| statement.  It may require
+multiple \verb|if| statements and it may require the \verb|break| statement.
+It may also be useful to have a \verb|case| statement.  The \verb|read|
+statement should have a descriptive prompt.  And, as always, there should be
+comments throughout!
+
+Make sure your code works (test it with a few numbers: -10, 50, 150, 1d30).
+
+\section{\texttt{stop}}
+Now insert a \verb|stop| statement in your code, somewhere inside the loop.
+Run the code.  You will be dumped out with the following prompt:
+\begin{lstlisting}
+% Compiled module: $MAIN$.
+% Stop encountered: $MAIN$             ##
+\end{lstlisting}   
+where \verb|##| is the line number of the \verb|stop| statement.
+
+At this point, examine your variables: Try using the \verb|print| and
+\verb|help| statements.  See what's going on.
+
+When you're done, use \verb|.continue| to continue.  You'll be stopped again,
+though, since you're inside a loop.  Use \verb|help| and \verb|print| again to
+see what's changed.  Then \verb|.continue| again, then quit.  Once you're done
+examining the inside of your loop, remove the \verb|stop| statement.
+
+\begin{samepage}
+\section{crash!}
+Now, in the same location where you had the \verb|stop| statement, add the
+following line:\\
+\verb|y = zzzz^2|
+
+This line will cause a crash, with the text: \\
+\begin{lstlisting}
+% Variable is undefined: ZZZZ.
+% Execution halted at: $MAIN$             15
+\end{lstlisting}
+
+Note that the ``crash'' has nearly the same effect as the stop statement:
+you are back in interactive mode, and need to use \verb|.c| to continue.  As
+long as the variable \verb|zzzz| does not exist, you'll continue to be dropped
+out just like with \verb|stop| above.  
+
+However, try defining the number \verb|zzzz=5| (or any number of your choosing;
+it really doesn't matter).  Then do \verb|.c|.  What happens next?
+\end{samepage}
+
+\section{Comparison from Text}
+Write a function called \verb|compare_values| in a file
+\verb|compare_values.pro| that takes 3 inputs: \verb|value1|,
+\verb|comparison_name|, and \verb|value2|.  The program should use a
+\verb|case| statement that will return the appropriate comparison.  i.e., if
+you call \verb|print,compare_values(2,'gt',1)|, the function should return the
+value of \verb|2 gt 1|, which is “True" or \verb|1|.
+
+Make sure it can deal with the following comparison operators:\\
+\verb|gt lt ge le eq ne < >|
+
+\section{Conditionals}
+Create a new file called \verb|test_conditionals.pro|.  This is a reference
+file for your own use now and in the future.
+
+You will create a series of ``test conditionals'' in this file by using the
+ternary operator.  The tests will take the following form:\\
+\verb|print,"Is x gt y?  ",(x gt y) ? "yes" : "no"|
+
+Create tests for the following, but \emph{fill these out by hand}
+before you run them! (i.e., circle ``yes'' or ``no'')\\
+
+HINT: To make this easier, you can make use of the \verb|list| and/or the
+\verb|hash| construct.  You should use \verb|foreach| loops.  You should
+definitely make use of the \verb|compare_values| function you created above.
+
+{\large
+\begin{tabular}{|c|c|c|c|}
+    \hline
+    x & comparison & y & yes or no \\
+    \hline
+    1 & gt & 0 & yes no \\ 
+    1 & > & 0 & yes no \\ 
+    5 & > & 0 & yes no \\ 
+    4 & > & 0 & yes no \\ 
+    1 & > & 7 & yes no \\ 
+    5 & > & 7 & yes no \\ 
+    4 & > & 7 & yes no \\ 
+    `0' & eq & 0 & yes no \\ 
+    `1' & eq & 0 & yes no \\ 
+    0.0 & eq & 0 & yes no \\ 
+    1.0 & eq & 1 & yes no \\ 
+    0.5d & eq & 0.5 & yes no \\ 
+    0.2d & eq & 0.2 & yes no \\ 
+    \verb|2^(-30d)| & eq & \verb|2^(-30e)|& yes no \\ 
+    \verb|1.1+2^(-30d)| & eq & \verb|1.1+2^(-30e)|& yes no \\ 
+    `yes' & eq & "yes" & yes no \\ 
+    \verb|sin(!pi)| & lt & \verb|sin(!dpi)| & yes no \\ 
+    \verb|cos(!pi)| & eq & \verb|cos(!dpi)| & yes no \\ 
+    \hline
+\end{tabular}
+}
+
+Add any tests you can think of to this. 
+
+Once you have completed this exercise, \verb|git add| the file, 
+\verb|git commit -a| to commit the changes, and \verb|git push| them to your
+repository.
+
+\end{spacing}
+\end{document}
+

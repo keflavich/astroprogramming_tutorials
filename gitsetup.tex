@@ -1,0 +1,253 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Git Setup}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+%\setcounter{secnumdepth}{2}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\Figure#1#2#3#4#5{
+\begin{figure}[htp]
+%\epsscale{#4}
+\includegraphics[scale=#4,angle=#5,width=7in]{#1}
+\caption{#2}
+\label{#3}
+\end{figure}
+}
+
+
+\begin{document}
+\begin{spacing}{0.5}
+%\maketitle
+\newpage
+
+
+
+\section{Git Setup Revisited}
+
+This is a walk-through of how to make a repository on github and share
+it with Cameron and Adam.
+
+\subsection{github.com}
+Have you completed the other git tutorials?  If so, you should see
+a window that looks like this one:
+
+\Figure{Frame1_yourdir.png}
+{What you should see at \url{http://github.com} if you completed
+the previous tutorials.  The arrow points to your directory;
+if it exists click it and move on to Section \ref{sec:setup}, otherwise
+go to Section \ref{sec:makenew}}
+{fig:yourdir}{0.5}{0}
+
+\clearpage
+\subsection{Make a New Repo}
+\label{sec:makenew}
+If you haven't completed the previous git tutorials, do so now.
+This document provides some guidance.
+
+\Figure{MakeNewRepo.png}
+{Click the button in the top right to create a new repository.}
+{fig:makenew}{0.5}{0}
+
+\Figure{CreateRepository.png}
+{Create your repository. \emph{Make sure} you select the ``private'' button.
+If it asks you for money at this point, go to \url{http://github.com/edu}
+and click ``I'm a student'' and fill in the form.  Then, return here.}
+{fig:create}{0.5}{0}
+
+\clearpage
+\subsection{Set up your repository}
+\label{sec:setup}
+Set up your repository locally.
+
+Before you do that, switch editors to \verb|nano|.  We were using gedit
+as the editor, but I found out recently that that can lead to problems.\\
+\verb|git config --global core.editor nano|
+
+Do the following:
+\begin{enumerate}
+    \item Change directories to your assignments directory.
+        You can probably do this with:\\
+        \verb|cd ~/ASTR2600|
+    \item \verb|git init|
+    \item \verb|git add *|
+    \item \verb|git commit -m "First Commit"|
+\end{enumerate}
+
+Go back to your repository on github.
+You should see a screen like Figure \ref{fig:setup}.  Follow the highlighted
+instructions, i.e. do the \texttt{git remote add} and \texttt{git push}
+commands as shown.
+
+\Figure{GitSetup.png}
+{The setup instructions once you've created a repository and opened it, but
+before you've added content.  Make sure the SSH button is selected.  You will
+use the \texttt{git remote add} and \texttt{git push} commands shown highlighted
+in the red box (don't try to just do \texttt{git remote add}, that is not a
+complete command).}
+{fig:setup}{0.5}{0}
+
+
+\clearpage
+\section{Add Cameron and Adam as collaborators}
+\label{sec:collab}
+This part is necessary for us to see the work you turn in.
+
+In your repository, click the admin button (Figure \ref{fig:adminbutton})
+
+\Figure{AdminButton.png}
+{The admin button}
+{fig:adminbutton}{0.5}{0}
+
+Once in admin, click the Collaborators button (Figure \ref{fig:collabbutton})
+
+\Figure{CollaboratorsButton.png}
+{The Collaborators button}
+{fig:collabbutton}{0.5}{0}
+
+Then, add us as collaborators.  The usernames are:\\
+keflavich\\
+cwedge90\\
+
+\Figure{AddCollaborators.png}
+{The Add Collaborators dialog}
+{fig:addcollab}{0.5}{0}
+
+\end{spacing}
+\end{document}
+

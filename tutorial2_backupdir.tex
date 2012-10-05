@@ -1,0 +1,208 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{TUTORIAL: Making Backups}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Make a Backup Directory}
+
+This tutorial is to set up a ``backup directory'' for you to copy files into in
+order to prevent accidentally losing data.
+
+We'll use the unix commands \verb|cp|, \verb|mkdir|, \verb|cd|, \verb|ls|,
+\verb|pwd|, \verb|echo|, \verb|cat|.
+
+\subsection{Make Backups}
+
+\begin{enumerate}
+    \item Enter \verb|pwd|.  \verb|pwd| stands for ``present working
+        directory''; it is like asking ``Where am I now?''
+        You should be in your home directory.
+    \item Even if you are already in your home directory, enter \verb|cd|.
+        Just \verb|cd|, with nothing after it, moves you to your home
+        directory.  So does \verb|cd ~|.
+    \item Enter \verb|ls| to ``list'' the contents of your home directory
+    \item Make a new directory called ``backup'': \verb|mkdir backup|
+    \item Find all \verb|.pro| files you've made so far: \verb|ls *pro|.
+        ``*'' is called a ``wildcard''.  It represents any number or letter, so
+        \verb|*pro| will find all files that end with the letters \verb|pro|
+    \item Copy all of your \verb|.pro| files into your \verb|backup/| directory:
+        \verb|cp *pro backup/|
+\end{enumerate}
+
+We just demonstrated some of the power of the UNIX operating system.  Now we'll
+explore some of the dangers.
+
+\subsection{Screw up a backup}
+
+\begin{enumerate}
+    \item Enter \verb|echo "; This text will be lost" > temporary.pro|.  This
+        is a complicated command involving a ``redirect''.  \verb|echo| is like
+        the print command in IDL; it is harmless.  \verb|>| means that instead
+        of being ``printed to the screen'', the output of \verb|echo| is
+        redirected to a file.
+    \item Now copy \verb|temporary.pro| to \verb|backup/|
+    \item Verify that the copy succeeded with \verb|ls backup/|
+    \item Verify that the text is still what you wrote: open \verb|temporary.pro|
+        in \verb|gedit| with \verb|gedit backup/temporary.pro &|.
+    \item Once you've verified that the text is there, close \verb|gedit|.
+    \item One more verification: \verb|cat backup/temporary.pro|
+    \item Now let's overwrite \verb|temporary.pro| with something useless:
+        \verb|echo "This text is junk" > temporary.pro|.
+    \item You can verify that \verb|backup/temporary.pro| is still safe with
+        \verb|cat backup/temporary.pro|
+    \item Now, repeat the command from above, \verb|cp *pro backup/|
+    \item Look at the contents of \verb|backup/temporary.pro|: \verb|cat backup/temporary.pro|
+    \item We never wanted either \verb|temporary.pro| in the first place.
+        Remove both with the commands \verb|rm temporary.pro| and \verb|rm
+        backup/temporary.pro|.  \emph{BE CAREFUL not to use wildcards for these
+        operations!}
+\end{enumerate}
+
+Short story: It's really easy to overwrite files.  It's also easy to do
+unexpected things when using shortcuts like wildcards.  Be careful!
+
+This little exercise is a lead-in to more advanced code backup techniques,
+specifically something called “version control”.  If you're interested in
+learning more about it now, google \texttt{git} or \texttt{mercurial} and have
+a look at \url{http://hginit.com}.
+
+\end{spacing}
+\end{document}
+

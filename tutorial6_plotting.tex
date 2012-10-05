@@ -1,0 +1,290 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Plotting 1}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Tutorial: Plotting (1)}
+
+We'll plot some things in IDL.  This is a simple intro, but we'll do
+more plotting tutorials later on.
+
+Take advantage of copy \& paste and the up arrow in this tutorial.  If you
+select text with the mouse, the text is ``copied into the buffer'' (as if you'd
+gone to the ``Edit'' menu and pressed ``Copy'' in a word processing program).
+You can past it by middle-clicking wherever you want it pasted.
+
+Open IDL.  Start a journal file called
+\verb|tutorial6_plotting_[today'sdate].pro|.  Replace the part in square braces
+with today's date!
+
+We'll make two \verb|x| arrays: one ``high resolution'' and one ``low resolution''
+
+\begin{lstlisting}
+    x1 = findgen(1000)/999*4*!pi
+    x2 = findgen(10)/9*4*!pi
+\end{lstlisting}
+
+Plot and overplot some functions (remember you can use the up arrow key to recall
+previous commands):
+
+\begin{lstlisting}
+    plot,x1,sin(x1)
+    oplot,x1,sin(x1)^2
+    oplot,x2,sin(x2)
+    oplot,x2,sin(x2)^2
+\end{lstlisting}
+
+That looks hideous.  We'll add some color.
+
+\begin{lstlisting}
+    plot,x1,sin(x1)
+    oplot,x1,sin(x1)^2,color='0000FF'x
+    oplot,x2,sin(x2),color='00FF00'x
+    oplot,x2,sin(x2)^2,color='FF0000'x
+\end{lstlisting}
+
+Well\dots it's colorful, at least.
+
+We can make the lines thicker:
+
+\begin{lstlisting}
+    oplot,x1,sin(x1)^2,color='0000FF'x,thick=3
+\end{lstlisting}
+
+Notice that there's some blank space on the right side.  This can be cleaned up with
+the \verb|xstyle| keyword:
+
+\begin{lstlisting}[breaklines,upquote=true]
+    plot,x1,sin(x1),xstyle=1,thick=3
+    oplot,x1,sin(x1)^2,color='0000FF'x,thick=3
+    oplot,x2,sin(x2),color='00FF00'x,thick=3
+    oplot,x2,sin(x2)^2,color='FF0000'x,thick=3
+\end{lstlisting}
+
+What does \verb|xstyle| mean?  Open the online help:
+
+\verb|?plot|
+
+Scroll down until you find the keyword \verb|style|.  Read the help.  Also note
+all the myriad options on the way down!
+
+Let's build up the longest sensible plto command we can (it might be a good
+idea to write this in a text file and copy and paste it so you can scroll
+around the line more easily):
+
+\begin{lstlisting}[breaklines,upquote=true]
+    plot, x1, sin(x1), xstyle=1, thick=3, title='My Plot', xtitle='The X Axis', ytitle='The Y Axis', ytickname=['minus 1','minus 1/2','0','1/2','1']
+    oplot,x1,sin(x1)^2,color='0000FF'x,thick=3
+    oplot,x2,sin(x2),color='00FF00'x,thick=3
+    oplot,x2,sin(x2)^2,color='FF0000'x,thick=3
+\end{lstlisting}
+
+OK, clearly you can do a lot with a single IDL command, but it becomes
+overwhelming and excessive rather quickly.
+
+There's a way around this: the ``line continuation character'' \verb|$|
+
+\begin{lstlisting}[breaklines,upquote=true]
+    plot, x1, sin(x1), xstyle=1, thick=3, title='My Plot', xtitle='The X Axis',$
+        ytitle='The Y Axis', ytickname=['minus 1','minus 1/2','0','1/2','1']
+\end{lstlisting}
+
+Now you've entered two lines of text, but IDL treats them as one.  This is a
+way to make your code neater: if you have a very long command, you can break it
+up the way you would break up normal text in a paragraph as long as you tell
+IDL by adding a \verb|$| at the end.
+
+ASIDE: You must use single quotes, not double quotes, if you have a number as
+the first character.  For some quirky reason, IDL treats anything that looks like
+\verb|"0231| or \verb|"#...| (i.e., a double quote followed by any number) as an
+``octal'' value.
+
+\section{More plotting - now python}
+This is a class about programming, not just about IDL.  It is also a class
+about programming for astronomy.  If you decide to work with or for
+astronomers, odds are you will see BOTH IDL and python being used.  So, I want
+you to be able to read and at least do minimal tasks in both.
+
+To start python, run the command
+
+\verb|ipython -pylab|
+
+This is not `vanilla python' - \texttt{ipython} is a special environment
+designed for interactive use.  \texttt{pylab} means that the syntax (the names
+of functions and the way you call them) is meant to resemble matlab.  It's also
+pretty similar to IDL, but there are some key differences.
+
+We'll do the same plots as in IDL:
+
+\begin{lstlisting}
+    # IDL was: x1 = findgen(1000)/999*4*!pi
+    x1 = linspace(0,4*pi,1000) 
+    # x2 = findgen(10)/9*4*!pi
+    x2 = linspace(0,4*pi,10) 
+    plot(x1,sin(x1))
+    plot(x1,sin(x1)**2)
+    plot(x2,sin(x2))
+    plot(x2,sin(x2)**2)
+\end{lstlisting}
+
+Note the differences:
+\begin{enumerate}
+    \item Python defaults to a white background with some buttons.  
+    \item Python has the ``convenience'' command \verb|linspace|
+    \item Python does \emph{not} clear the plot by default: clearing the plot
+        requires the command \verb|clf()|
+    \item Python commands are followed by parentheses, while IDL procedures
+        were followed by commas.  We'll revisit this later: IDL uses two
+        different syntaxes for ``procedures'' and ``functions''\dots
+    \item The exponent in python is \verb|**|, in IDL is \verb|^|
+    \item Comments in python start with \verb|#| instead of \verb|;|
+\end{enumerate}
+
+\end{spacing}
+\end{document}
+

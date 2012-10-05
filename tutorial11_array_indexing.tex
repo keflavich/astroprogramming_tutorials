@@ -1,0 +1,277 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Array Indexing / Spectroscopy}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Tutorial: Array Indexing and Spectroscopy}
+
+We will examine the properties of a spectrum!
+
+\section{Read the data}
+There is a spectrum file sitting in the shared data directory:\\
+\verb|/home/shared/astr2600/data/spectrum.txt|\\
+The wavelength is in units of Angstroms (\AA).  The flux units are
+not specified.
+
+
+Open this in a text editor (\verb|gedit|, \verb|vim|, or whatever).\\
+Examine it.  How many lines are in the file?  \underline{\hspace{3cm}}
+How many columns? \underline{\hspace{3cm}}
+
+Keep that path handy as you open IDL.
+
+In IDL, find out how many lines there are in the file using \verb|file_lines|:\\
+\begin{lstlisting}
+nlines = file_lines('/home/shared/astr2600/data/spectrum.txt')
+\end{lstlisting}
+
+Check to make sure that agrees with the number you found above.
+
+Now, make two variables to store the wavelength and flux arrays.
+Which column is the flux and which is the wavelength? \\
+Flux Column \#: \underline{\hspace{3cm}}
+Wavelength Column \#: \underline{\hspace{3cm}}
+\begin{verbatim}
+wavelength = fltarr(nlines)
+flux = fltarr(nlines)
+; replace ncols with the number of columns
+xy = fltarr(ncols, nlines)
+\end{verbatim}
+
+Now, read the data in from the file.  
+\begin{lstlisting}
+openr,lun,'/home/shared/astr2600/data/spectrum.txt',/get_lun
+readf,lun,xy
+wavelength = xy[0,*]
+flux = xy[1,*]
+free_lun,lun
+\end{lstlisting}
+
+Remember what all that does?  Just to see some mistakes you could have made, let's try plotting some things.
+
+\verb|plot,xy|
+
+What does this look like?  Why?  (just think about it.  Maybe print out a few elements of \verb|xy| to check)
+
+\section{Examine the data}
+Zoom in on the line centered at 1330 angstroms.
+
+First, set the width of the zoom and the center:
+\begin{lstlisting}
+zoomwidth=10
+center=1330
+\end{lstlisting}
+
+Then, set your upper and lower bounds: \nobreak
+\begin{verbatim}
+lowerbound = center - zoomwidth/2
+upperbound = center + zoomwidth/2
+\end{verbatim}
+
+Now, use the \verb|where| function to pick out the region you want to plot:
+\begin{verbatim}
+zoomregion = where( (wavelength gt upperbound) and (wavelength lt lowerbound), npts )
+\end{verbatim}
+% zoomregion = where( (wavelength lt upperbound) and (wavelength gt lowerbound), npts )
+
+What is \verb|npts|?  \underline{\hspace{3cm}}\\
+Why?  What did we do wrong?  Fix it!
+
+Now plot up your results:
+\begin{verbatim}
+plot,wavelength[zoomregion],flux
+\end{verbatim}
+% plot,wavelength[zoomregion],flux[zoomregion]
+
+Does this look like the region centered around 1330 that we had looked at before?  \\
+Why not? What did we do wrong this time?  Again, fix it!
+
+\section{Measurements}
+We shall measure the data.
+
+First, what is $\Delta \lambda$?  I expect you to be able to get this, but ask a
+neighbor if you're not sure how (don't just get the answer, understand the
+method)\\
+$\Delta \lambda=$\underline{\hspace{3cm}}
+
+What is the continuum?  (approximately, get it from the plot) \\
+$continuum\approx$\underline{\hspace{3cm}}
+
+Now, determine how much light is absorbed.  There are multiple ways you can do
+this.  One way is to determine the ``absorption spectrum'' as we did in the
+lecture example.  Another would be to determine the ``area under the continuum''
+and the ``area under the spectrum'' and take the difference.  
+Pick one of these methods - or another if you can think of any - and determine the
+absorbed flux.
+
+Absorbed flux: \underline{\hspace{3cm}}
+
+\section{Equivalent Width}
+What is the equivalent width of the line?  Recall that equivalent width means
+``the width of the box that has the same area as the absorption line.''  It is
+a box going from the bottom to the top of the plot.
+$EQW=$\underline{\hspace{3cm}}\AA
+
+Overplot a box centered on the line center with the correct height and width.
+Use \verb|color='00AAFF'x| (orange).
+
+To plot a box, you need to draw 4 lines.  You can determine what the 4 corners are:\\
+$x1=$\underline{\hspace{3cm}}  $y1=$\underline{\hspace{3cm}} \\
+$x2=$\underline{\hspace{3cm}}  $y2=$\underline{\hspace{3cm}} \\
+$x3=$\underline{\hspace{3cm}}  $y3=$\underline{\hspace{3cm}} \\
+$x4=$\underline{\hspace{3cm}}  $y4=$\underline{\hspace{3cm}} \\
+
+Then, you need an array with \emph{5} elements!  (each pair of corners gets you one line, but plot
+doesn't automatically draw from the last back to the first)\\
+\verb|oplot,[x1,x2,x3,x4,x1],[y1,y2,y3,y4,y1],color='00AAFF'x|
+
+You've now measured and visualized Equivalent Width.  We'll do more with it eventually.
+
+\end{spacing}
+\end{document}
+

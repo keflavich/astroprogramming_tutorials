@@ -1,0 +1,218 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Examining File Contents}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Tutorial: Examining file contents}
+
+Most files we will work with are `pure text' files.  That is, they contain only
+normal alphanumeric characters (a-z, 0-9) and things you could type on the
+keyboard.  It is frequently useful to view these from the terminal.  Say, for example,
+you want to make sure you entered all of the commands from the last Exercise into your
+journal file correctly.  How would you do that?
+
+Pick a journal file in your home directory (your home directory is \verb|~|, or
+\verb|/home/astr/ugrad/username/|.  you can get there with the command
+\verb|cd| or \verb|cd ~|).  We will examine its contents.
+
+First, we'll use the simplest command available: \verb|cat|, short for \verb|conCATenate|.
+
+\verb|cat filename.pro|
+
+You should see something like:
+\begin{verbatim}
+; IDL Version 8.1 (linux x86_64 m64)
+; Journal File for ginsbura@cosmos.colorado.edu
+; Working directory: /home/astr/grad/ginsbura
+; Date: Mon Aug 27 13:57:12 2012
+\end{verbatim}
+followed by your commands.
+
+If you've picked a large file, you might not be able to read the whole thing in
+one screen.  You can probably scroll up with the mouse, but there's another way 
+to view the file contents.
+
+\verb|less filename.pro|
+
+Within the \verb|less| environment, you can use the up and down keys and the spacebar
+to scroll through the file.  When you're done, press ``\verb|q|'' (and remember this - 
+\verb|q| frequently gets you out of ``interactive'' windows).
+
+You can also use both commands to show line numbers before the lines.  With cat, use:
+
+\verb|cat -n filename.pro|
+
+With less, use
+\verb|less -N filename.pro|
+
+Remember that UNIX \emph{is} case sensitive!  IDL and the Mac OS filesystem are
+not, but these are rare exceptions in the computing world!
+
+But don't try to remember all of the ``-n'' and ``-t'' and ``-v'' options for
+each command here.  That's a waste of your limited memory.  That's what computers
+are for.  There is a UNIX ``manual'' command \texttt{man} - use that.
+
+\verb|man less|
+
+\verb|man cat|
+
+The documentation for \verb|less| is long and verbose.  Honestly, I only use it to quickly
+skim files.  The documentation for \verb|cat| is short and pretty easy to understand (although
+there are more details with the extra-verbose \verb|info| command).
+
+There's another handy command for remembering things.  Say you want to find out what ``text editors''
+are on the system.  Use the \verb|apropos|\footnote{\textbf{apropos}: with
+reference to; concerning
+\url{http://oxforddictionaries.com/definition/american_english/apropos?region=us&q=apropos}}
+command to find things related to text editors:
+
+\verb|apropos editor|
+
+These are all of the editors you can use.  Some of them are ``stream editors''
+that we'll discuss another time, but many are text editors with a somewhat
+familiar feel.  I recommend trying \texttt{nano}, \texttt{gedit}, and
+\texttt{vi} or \texttt{vim}.  
+
+
+
+\end{spacing}
+\end{document}
+

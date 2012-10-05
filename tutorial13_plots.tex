@@ -1,0 +1,271 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Plots and Color}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+%\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\title{Tutorial: Plotting and Colors}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+%\newpage
+
+
+
+\section{Tutorial: Plotting and Colors}
+
+We're going to try to understand a little more about IDL's colors.  In the
+process, we're going to do quite a bit of program editing work.
+
+In order to cut down a bit on typing interactively at the command prompt,
+I'm providing you with some functioning code.
+
+\subsection{Get the code from git}
+
+Change directories to your ASTR2600 git fork directory.
+
+In that directory, do the following:
+
+First, this command:\\
+\verb|git remote add upstream git@github.com:ASTR2600f12/ASTR2600.git| \\
+This crazily verbose command means:
+``Add the ORIGINAL repository (that Adam made) as a `remote repository' in
+my clone.  Call it `upstream'. ''
+
+What is a remote repository?  It's a location on some other server you can
+``push'' to (send your changes to) or ``pull'' from (get changes other people
+have made).  
+
+Why ``upstream''?  Because new code can flow from it, but you can't send your
+changes directly to it.  
+
+OK, why do this at all?  Because someone else - in this case, Adam - made a 
+change to the original code, but your ``fork'' doesn't know about it yet.  So
+you have to tell it to get the changes.
+
+Next step:\\
+\verb|git fetch upstream|
+
+This will grab all of the changes from the remote (upstream) branch, but it
+doesn't make any changes to your code at all yet.  Basically, this just
+downloads information from the server.
+
+\verb|git merge upstream/master|
+Now you're ``merging'' the changes that I made with your files.  This WILL
+make changes to your code!  “upstream" is the name of the remote repository,
+“master" is the name of a “branch", which is something we haven't discussed;
+we'll get there eventually.  For now, we always use master.
+
+If it works, you should see something approximately like:
+\begin{lstlisting}
+Updating e2c3572..04e1e45
+Fast-forward
+ Tutorial13/color_ref.pro |   10 ++++++++++
+ 1 files changed, 10 insertions(+), 0 deletions(-)
+ create mode 100644 Tutorial13/color_ref.pro
+\end{lstlisting}    
+
+The ``fast-forward'' bit means your code was out of date compared to upstream,
+and you've now ``caught up''.  
+
+\verb|Tutorial13/color_ref.pro| is a file that has changed (there may be
+others, but this one should definitely be there).  The \verb|+|'s indicate how
+many new lines have been added; since this file is completely new, all of the
+lines are added.
+
+Now, finally, you need to do:\\
+\verb|git push| \\
+to send the merge back to \emph{your} remote repository: you so far have only
+made changes to the files on cosmos, and the download came from upstream, which
+is not yours.
+
+There is a lot more information on the push/pull model and all the tasks we
+just did at this website:
+\url{https://help.github.com/articles/using-pull-requests}, but I think much of
+the language will be incomprehensible to you at this point.  
+
+\subsection{Use the new code}
+Open \verb|Tutorial13/color_ref.pro| in a text editor and keep it open.
+
+Open IDL.  At the IDL prompt, run \verb|Tutorial13/color_ref.pro|.
+For example, if you started IDL in the ASTR2600 fork directory, you'd do:\\
+\verb|.r Tutorial13/color_ref.pro|
+
+You have a color table!  But\dots what does it mean?  Looking at
+\verb|color_ref.pro| probably doesn't tell you much.  There are no axis labels!
+There are no comments!  OH NO!
+
+Your job is to correct this!  
+
+ASSIGNMENT: Correct \verb|color_ref.pro| to be more useful.  Make sure it is
+adequately commented.  Commit your changes. When you have a
+\verb|color_ref.pro| you're satisfied with, \verb|git push|  to send the
+changes to the repository and then create a \emph{pull request} to suggest that
+I accept your changes.  I'll give bonus points to whoever has the best
+\verb|color_ref.pro|.
+
+\subsection{Playing with Plots and Colors}
+Next, run the \verb|eyeball.pro| script (note that this is a script, not
+a program).  Also open it in a text editor.
+
+Add comments to \verb|eyeball.pro| explaining what the unexplained lines (which
+we identified in class) do.  
+
+If there's anything you dislike about the so-called eyes, see if you can fix
+them.  Possible fixes: 
+\begin{enumerate}
+    \item Convince IDL to draw within the lines 
+    \item Make the eyes elliptical
+    \item Add some other features frequently seen in eyes (e.g. whites)
+\end{enumerate}
+
+Finally, add a mouth!  This can probably be done with a parabola.  You
+will also probably need to change the plot limits.  
+
+Do this all within your personal \verb|eyeball.pro|.  Again, save and commit
+your changes, and when you're done, push your changes and create a pull
+request.
+
+ASSIGNMENT: Comment, fix up (as much as you'd like, but at least a little),
+and add a mouth to \verb|eyeball.pro|.
+
+\end{spacing}
+\end{document}
+

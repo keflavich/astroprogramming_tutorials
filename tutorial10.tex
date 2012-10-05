@@ -1,0 +1,398 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Getting started with Version Control}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+
+\section{Tutorial: Version Control}
+
+We're taking a huge step into a much more advanced realm of program
+development.
+
+Almost all programmers outside of the sciences do their programming
+collaboratively.  Recently, the same has become true of programmers within
+science as well.
+
+Collaborative programming is when you allow others to help you with your code,
+or as a group you combine your efforts to write one big code instead of many
+separate ones.
+
+The simplest way to do this is for each individual to write their own code,
+pass it around, and have colleagues write down their own comments and
+suggestions on how to change or improve the code.  While simple, this is
+horribly inefficient: what if the only change your code needed was the addition
+of a semicolon where you accidentally left one out?  There are many other
+reasons this method isn't great (but it is still the preferred method of editing
+papers).
+
+There is a powerful unix tool called \texttt{diff} that allows you to directly
+compare files.  The \texttt{diff} command goes through a pair of text files
+line-by-line identifying differences on each line, but ignoring lines that are
+the same.
+
+There is a whole huge framework of tools built on top of \texttt{diff}.  We're
+going to skip over a lot of the why and how for those so we can get to more
+immediately useful stuff.
+
+\section{git}
+\texttt{git} is a ``distributed version control system''.  Those words contain a
+lot of layered meaning, but for now you need to know that \texttt{git}:
+\begin{enumerate}
+    \item is a way to keep track of edits to your code
+    \item provides local (and remote) backups of your code
+    \item is a great way to share code
+\end{enumerate}
+There are other similar codes: \texttt{hg} (mercurial) is basically the same
+thing, while \texttt{svn} (subversion) is a little different but similar.
+We're using \texttt{git} simply because \texttt{github} gave us an educational
+account.
+
+You're going to make a `git' account for your own use and for this class.
+
+Go to \url{http://github.com} and click the `Signup and Pricing' button.
+Then, click the `Create a free account' button.
+
+It will ask you for a username, e-mail address, and password.  For your
+username, pick anything you'd like (but be aware, it will be visible to the
+internet, including me).  For your e-mail address, use your
+\texttt{@colorado.edu} address - this is important, as it will allow you access
+to some free \texttt{.edu} features that are not otherwise available.
+
+E-mail your account name to Adam (\url{astr2600@gmail.com}).  
+
+%Once you've logged in, go to \url{https://github.com/edu}
+Once you've logged in, click on the “Account Settings” button (top right, looks
+like a screwdriver + wrench).  Click on the “Emails” tab on the left side.
+Then, click the “Verify” button.  You will receive an e-mail sometime soon
+confirming that you are indeed a student and giving you free access to private
+repositories (we'll talk about what those are).
+
+Go back to the github homepage \url{http://github.com}.  You should be logged in.
+On the top-left, there should be a button with your username and a drop-down
+triangle to the right side.  Click on that, and select “ASTR2600f12”.
+
+On the right side, there is a region labeled `Repositories'.  Under `All
+Repositories', click the \texttt{ASTR2600f12/ASTR2600} link.  This is the
+“repository page” where all the code is hosted.  But that's not really the 
+point, yet...
+
+\section{Making an SSH key}
+
+SSH stands for ``secure shell''.  It is a cryptographic network protocol, which
+means it's a way to communicate between computers securely so that no one can
+see what you send or receive.
+
+When you're sending data to and receiving data from github, git uses the ``ssh
+protocol'' to protect your data.
+
+For this process to work properly and easily, you need a way for the remote repository
+(the github website) to know that you, and not someone else pretending to be you, are
+asking for the data.
+
+So, we're going to make a ``public key'' to send to github.  Encryption is a very complicated
+topic on its own, so we're not going to discuss it in detail - this will just be a simple
+``how-to''.
+
+Run the command \verb|ssh-keygen|.  When it prompts you to ``Enter file in
+which to save the key'', press \texttt{enter} to accept the default.  Press
+\texttt{enter} twice more to accept ``no passphrase''.
+
+To see the contents of the public key, use the cat command:\\
+\verb|cat ~/.ssh/id_rsa.pub|
+
+Now load up the github web page again.  Go to ``settings'', then select the
+``SSH Keys'' tab on the left side.  Click ``Add SSH Key'' in the top right.
+
+Copy and paste the text shown into the ``Key'' text box.  You can use any title
+you'd like, but I recommend calling it ``cosmos'' since that's the name of the
+computer it represents.
+
+Now you should be able to send/receive data from cosmos very easily.
+
+\section{git and cloning}
+
+Back at your terminal, type the following command (note that you can copy \&
+paste the URL from the web page that is currently open):
+
+\verb|git clone git@github.com:ASTR2600f12/ASTR2600.git ASTR2600-examples-git|
+
+\begin{itemize}
+    \item \texttt{git} is the command for the version control program.  All commands
+        using \texttt{git} will start with this.
+    \item \texttt{clone} tells git that you want to `clone', i.e. create an
+        exact copy of, the repository
+    \item \texttt{git@github.com:ASTR2600f12/ASTR2600.git} is the full URL of
+        the repository, with special weird syntax.  Don't worry about it; I
+        always copy \& paste this stuff myself.
+    \item \texttt{ASTR2600-examples-git} is the name of the directory we have copied everything into
+\end{itemize}
+
+You may see a message like:
+\verb|The authenticity of host 'github.com (207.97.227.239)' can't be established.|
+Answer “yes”.  Technically, you should make sure that it's right before saying
+yes, but unless someone is explicitly trying to attack our computer (cosmos) right now,
+it should be fine.
+
+Now, \texttt{cd} into the \verb|ASTR2600-examples-git/sample_code| directory.  Do an
+\verb|ls| to show the contents.  You should see a directory, \texttt{coyote/},
+a file \texttt{snake.pro}, and a file \texttt{tvcircle.pro}.
+
+For kicks, open up IDL and do the following:
+
+\verb|.r snake.pro|
+
+If all goes well, you should see an (extremely poor) animation of something vaguely
+resembling a snake.  Next up are badgers and mushrooms (ignore this sentence).
+
+So far, you have created an account for yourself and acquired some code that I wrote.
+This is a great way to share code, but it is only the tip of the iceberg.
+
+Quit out of IDL before going to the next section.
+
+\section{Create your own local repository}
+
+This is to create a version control system for your own work.  It will include “incremental
+history” and backups.  That means that, if you use the version control system correctly,
+you will have a history of your work and all the changes you've made, AND you'll have a nice
+set of backups.
+
+Change directories to your ASTR2600 directory (should be \verb|cd ~/ASTR2600/|).
+Once there, type the command:\\
+\verb|git init|
+
+You should see a message like:\\
+\verb|Initialized empty Git repository in /home/astr/grad/ginsbura/ASTR2600/.git/|
+
+Next, we'll add all of your files and folders to the repository:\\
+\verb|git add *|
+
+To see what the \texttt{add} command has done, use the status command:\\
+\verb|git status|
+
+You should see a list of all of your assignment files, preceded by the text \verb|new file:|.
+
+Now we need to pick an editor.  If you like the editor \verb|gedit|, use it for
+the following command, otherwise use \verb|vi|, \verb|nano|, or whatever you
+prefer in its place.\\
+\verb|git config core.editor gedit|
+
+We'll now “commit changes” to the repository.  Up until now, you haven't
+created a backup of your files, but once you complete this command, they will
+all be stored \& backed up in the local repository.
+
+\verb|git commit|
+
+This will pop up a gedit window with all of the text you saw in 
+\verb|git status|, plus room at the top for you to enter a message.  Do that!  Your
+message should include a brief note about what you're adding (e.g.,
+assignments, assignment numbers) and a statement that this is the first commit.  
+In general, you want these notes to be long and verbose!
+
+When you're done entering your message, save and quit out of \verb|gedit| or
+whichever editor you're using.  You'll get a long verbose message, but short
+story is your code has been added.
+
+\section{Create your own repository on github}
+
+In your github browser window, click the icon with a plus on it (I think it's a
+line printer or something?  not sure); if you hover your mouse over the icon it
+should say “Create a New Repo”).
+
+Make the repository name “\verb|ASTR2600_assignments|”.  You can add something
+in the description if you'd like.  Make sure you select the \emph{Private}
+button.  If it asks you to pay, stop here and skip to the next section...
+
+% Click the “Initialize this repository with a README” button.
+
+Click “Create repository” [if it asked you to pay, this won't work]
+
+
+\section{TO DO once you've gotten confirmed with an educational account}
+Before doing this section, you must create a private repository (see ``Create
+your own repository on github'' above).
+
+Once you've successfully created your remote repository, you need to tell your git repository
+on cosmos where it is. Your command should look like this (replace username with your username):
+
+\verb|git remote add origin git@github.com:username/ASTR2600_assignments.git|
+
+This tells git to add a new remote repository called \texttt{origin} with the URL
+specified.
+
+You can now “push your changes upstream”, a strange turn of phrase meaning that
+you can take your local code (the stuff on cosmos) and “push” (upload) it to
+the remote host on github, where it will be stored and you can access it from
+anywhere.
+
+\verb|git push -u origin master|
+
+This command is a touch confusing, and it does a lot of things.  The
+\texttt{-u} option requires more explaining than I want to do here.
+\texttt{origin} indicates the name of the remote repository: the location
+you're pushing (uploading) to.  \texttt{master} is the name of the local
+“branch” you're operating on.  Branches are very useful things that grow from
+trees, but that analogy deserves some lecture time.
+
+% http://stackoverflow.com/questions/4658606/import-existing-source-code-to-github
+
+\section{What next?}
+From now on, any time you make changes to any of your files, you should
+use \verb|git commit -a| to back up your files\footnote{The \texttt{-a} is required
+to tell git to include your changes; it doesn't do that by default}.  Then use \verb|git push|
+to send your data to the remote repository.
+
+You can - and should - browse around github to look at the source code as it is
+stored on the server.  See if you can figure out how to look at \texttt{diff}s
+(we'll do it together at some point).
+
+Any time you create a new file or folder, you will need to do a \verb|git add|
+to add the new files, then do a \verb|git commit| to store them.
+
+
+\end{spacing}
+\end{document}
+

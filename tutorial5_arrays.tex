@@ -1,0 +1,291 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Arrays}
+\newcommand{\hmwkDueDate}{September 4th}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+
+\section{String Manipulation}
+
+We want to extract information from strings.
+Create the following variables (if you want, you can copy and paste them from
+\verb|/home/shared/astr2600/data/tutorial3_data.txt| - use \verb|cat| to see
+its contents):
+
+\begin{lstlisting}
+R = "Rigel      magB=  0.9 magV= 0.12"
+S = "Sirius     magB=-1.46 magV=-1.46"
+V = "Vega       magB= 0.03 magV= 0.03"
+B = "Betelgeuse magB= 2.27 magV= 0.42"
+\end{lstlisting}
+
+Our goal is to extract B and V magnitudes for these stars and enter them into
+arrays.
+
+First, find out where the magB value is stored.  To do this, let's look for the string
+\verb|"magB="|.
+
+\begin{lstlisting}
+magBstart = strpos(R,"magB=")
+print,magBstart
+\end{lstlisting}
+
+If you've done this correctly, magBstart should be 11.  OK, great, but we don't care where
+the string \verb|"magB"| starts, we care where it \emph{ends}.  So, let's use \verb|strlen|:
+
+\begin{lstlisting}
+magBlen = strlen("magB=")
+magBend = magBstart + magBlen
+\end{lstlisting}
+
+All good so far.  Let's do the same for magV:
+
+\begin{lstlisting}
+magVstart = strpos(R,"magV=")
+magVlen = strlen("magV=")
+magVend = magVstart + magVlen
+\end{lstlisting}
+
+Now we actually want to extract the magnitudes.  We'll use \verb|strmid| for that purpose.
+
+\begin{lstlisting}
+magB = strmid(R, magBend, magBlen)
+magV = strmid(R, magVend, magVlen)
+print,"Rigel magB is ",magB," and magV is ",magV
+\end{lstlisting}
+
+Great, we've read one of the strings!  This whole process was pretty tedious, so we ideally
+don't want to have to re-do it.  We can note that the strings were all of the same length:
+
+\begin{lstlisting}
+print,strlen(B)
+print,strlen(V)
+print,strlen(S)
+print,strlen(R)
+\end{lstlisting}
+
+and that they all have magB and magV in the same places.  So all we need to do
+is the \verb|strmid| step, not the others.
+
+Since we're making arrays, we'll do this all as one big step\dots
+\begin{lstlisting}[breaklines]
+magB = [strmid(R, magBend, magBlen),strmid(B, magBend, magBlen),strmid(S, magBend, magBlen),strmid(V, magBend, magBlen)]
+magV = [strmid(R, magVend, magVlen),strmid(B, magVend, magVlen),strmid(S, magVend, magVlen),strmid(V, magVend, magVlen)]
+print,magB
+print,magV
+help,magB,magV
+\end{lstlisting}
+
+But these are still of type string!  Let's make them floats:
+
+\begin{lstlisting}
+magB = float(magB)
+magV = float(magV)
+\end{lstlisting}
+
+Now, finally, we have some arrays with real data in them.  We'll make a
+color-magnitude diagram using IDL's plot routine.  Try each of these commands in order,
+they'll look slightly different:
+
+\begin{lstlisting}
+; this first one will look a bit strange
+plot,magB-magV,magV
+; this is a little better
+plot,magB-magV,magV,psym=1
+; maybe stars are best
+plot,magB-magV,magV,psym=2
+; Make it colorful
+plot,magB-magV,magV,psym=2
+oplot,magB-magV,magV,psym=2,color='0000FF'x,symsize=10
+\end{lstlisting}
+
+OK, those plots didn't look great - not many data points.  Let's load more data and try again.
+As above, copy \& paste lines from \verb|/home/shared/astr2600/data/tutorial3_data.txt|:
+
+\begin{lstlisting}[breaklines]
+pleiadesB = [2.806, 3.54, 3.612, 3.812, 4.113, 4.199, 4.967, 5.406, 5.585, 5.727, 6.124, 6.30, 6.415, 6.586, 6.87, 6.85]
+pleiadesV = [2.873, 3.62, 3.705, 3.871, 4.164, 4.291, 5.048, 5.448, 5.651, 5.761, 6.172, 6.28, 6.430, 6.606, 6.81, 6.83]
+\end{lstlisting}
+
+Then, let's try the same plots as above:
+\begin{lstlisting}
+; this first one will look a bit strange
+plot,pleiadesB-pleiadesV,pleiadesV
+; this is a little better
+plot,pleiadesB-pleiadesV,pleiadesV,psym=1
+; maybe stars are best
+plot,pleiadesB-pleiadesV,pleiadesV,psym=2
+; Make it colorful
+; note the single quotes (not double) in this line
+oplot,pleiadesB-pleiadesV,pleiadesV,psym=2,color='0000FF'x,symsize=3
+\end{lstlisting}
+
+To give you some idea of the astrophysics involved, plus get you used to labeling things,
+we'll add a title and axis labels
+
+\begin{lstlisting}[breaklines]
+plot,pleiadesB-pleiadesV,pleiadesV,psym=2,xtitle='B-V',ytitle='V magnitude',title='Pleiades Color-Magnitude Diagram'
+oplot,pleiadesB-pleiadesV,pleiadesV,psym=2,color='0000FF'x,symsize=3
+\end{lstlisting}
+
+Finally, for a real color-magnitude diagram, we want the brightest things plotted at the top.
+\begin{lstlisting}[breaklines,upquote=true]
+plot,pleiadesB-pleiadesV,pleiadesV,psym=2,xtitle='B-V',ytitle='V magnitude',title='Pleiades Color-Magnitude Diagram',yrange=[8,2]
+oplot,pleiadesB-pleiadesV,pleiadesV,psym=2,color='0000FF'x,symsize=3
+\end{lstlisting}
+
+Color-magnitude diagrams are useful plots for determining properties of star
+clusters and galaxies.  The y-axis, the brightness of the source, is strongly
+dependent on distance and the star's luminosity, while the x-axis depends on
+the star's intrinsic properties, but not distance.  When looking at a cluster
+or a galaxy, all stars are at (approximately) the same distance, and therefore
+the y-axis only depends on the luminosity.  The Pleiades cluster is one of the
+nearest and most massive clusters we have complete information on (meaning we
+think we know its distance very accurately), so it serves as a calibration
+target for stellar properties.
+
+\end{spacing}
+\end{document}
+

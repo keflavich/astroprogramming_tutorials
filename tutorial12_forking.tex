@@ -1,0 +1,260 @@
+%\documentclass[11pt,letterpaper,notitlepage,onesided]{tex/nwh_hw}
+%\documentclass[11pt,letterpaper,notitlepage]{article}
+\documentclass{article}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily} % <<< This line added
+\lstset{upquote=true}
+\lstset{breakatwhitespace=true}
+\renewcommand{\ttdefault}{cmtt}
+
+\usepackage{Tabbing}
+\usepackage{textcomp}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Tutorial: Forking}
+\newcommand{\hmwkDueDate}{DATE, 4:00 PM}
+\newcommand{\hmwkClass}{ASTR 2600}
+\newcommand{\hmwkClassTime}{4:00 PM T/Th}
+\newcommand{\hmwkClassInstructor}{Adam Ginsburg}
+\newcommand{\hmwkAuthorName}{Dewey Anderson}
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+%\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\: \hmwkTitle}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+\usepackage[utf8]{inputenc}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={Connecting to the cosmos computer from home using Microsoft Windows},
+            colorlinks=true,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\setcounter{secnumdepth}{0}
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{}\vspace{3in}}
+\date{}
+%\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{spacing}{1.0}
+%\maketitle
+\newpage
+
+\section{Setting up github for grading \& commentary}
+You should have a confirmed educational account and private repository for
+your homework and exercises at this point.  If you do not, please go back through
+the previous git tutorial and complete the necessary steps.
+
+Go to your github home page and open up your ASTR2600 repository (you could get
+there directly with \url{https://github.com/username/ASTR2600}).  Click on the
+``Admin'' tab near the top right.  Select the ``Teams'' tab on the left side.
+Select the team ``ASTR2600 Graders'' and add that team.
+
+If you don't have a ``Teams'' tab on the left side, but you DO have a
+``Collaborators'' tab, click that.  Add \texttt{cwedge90} and
+\texttt{keflavich} as collaborators.
+
+
+\section{Tutorial: Forking}
+
+A great deal of modern programming practice involves collaboration with your
+colleagues.  The internet has made this much easier than ever before, and there
+are specific tools on the web that make direct collaboration pretty easy.
+
+Most software seems to still work on the ``old model'' of software development.
+If you're using your Mac or Windows machine and something goes wrong (crashes,
+simply doesn't work) or you find there's a feature you really want but it
+doesn't exist, you're out of luck: you just reboot the machine and go on.
+
+The model for ``open source'' code, on the other hand, allows you to submit
+``bug reports'' saying things like, ``Doing this causes the code to crash'' or
+``I'd really like this feature.''   With tools like github and bitbucket (a
+competitor), there is a concept of ``forks'' and ``pull requests'' - with
+these, you can say ``I'd really like this feature, and I wrote some code that I
+think does it, so you should include it in your application.''
+
+Our goal is to do some work as a class.
+
+\section{Fork ASTR2600}
+Open up github and go to the ASTR2600 page: \url{https://github.com/ASTR2600f12/ASTR2600}.\\
+Make sure you're logged in (it should show your username towards the top-right).\\
+Then click the ``Fork'' button (also near the top right).  Enjoy the strange picture,
+comment, or animation at this point.
+
+Now, clone your new forked repository.  There should be a box in the center with 
+``SSH'' highlighted and text saying:\\ 
+\url{git@github.com:yourusername/ASTR2600.git}\\
+It should say ``Read+Write access'' next to it.
+
+Copy that URL and paste it to make the following command:\\
+\verb|git clone git@github.com:yourusername/ASTR2600.git ASTR2600_fork|
+
+You should now have access to the \texttt{snake.pro} code you saw last time we 
+worked with git.
+
+\section{Edit some code - comments!}
+
+Find \texttt{snake.pro} in the new \verb|ASTR2600_fork| directory and open it
+in an editor (e.g., \verb|gedit|).
+
+Now, go through that file and put comments wherever they are appropriate.
+For example, you might think it appropriate to add a commend at the top saying,
+``This code tries to animate a snake.''  You might also consider adding another
+comment before line 1 saying ``What does spawn do?''
+
+Remember, in IDL, comments are preceded with the semicolon \verb|;| character.
+
+Continue through the code, adding comments where you don't understand things.
+Where you DO understand what's going on, use the comments to describe the code.
+
+Save your work!  
+
+When you're done with that, do a \verb|git commit -a| on the command line (not 
+in IDL).  You'll need to include a commit message.  Then, \verb|git push| your
+results to the remote repository.
+
+\section{Pull Request}
+Go back to the github webpage and navigate to your copy of \verb|snake.pro|.  Have a
+look at it; make sure it has all the comments you put in.  If it doesn't, check
+to make sure you saved, committed, and pushed.
+
+Now, you can create a ``pull request''.  There is a button towards the top of the
+screen that says ``Pull Request'' - click it.
+
+You should be shown a ``diff'' between your fork and the original repository.
+You should also be given space to enter some text describing your pull request.
+Put something useful in there - e.g., ``commented snake.pro with questions about
+what it does''.
+
+I will be able to see the changes you've made and comment on your pull requests.
+I'll also be able to make line-by-line comments on YOUR comments.  So it's a
+great way to discuss code.
+
+\section{tvcircle}
+In the original version of \texttt{snake.pro}, it apparently lacked eyes (despite
+my best efforts).  Look at the \texttt{tvcircle} documentation (you can find it
+in the \texttt{tvcircle.pro} source code as comments at the top, or look at this
+URL: \url{http://astro.uni-tuebingen.de/software/idl/astrolib/tv/tvcircle.html}).
+See if you can use it to make eyes for the snake.
+
+If you succeed in making snake eyes (or maybe just one eye, depending on your
+perspective), commit that change and push it.  It will then be included in your
+pull request.
+
+In the next episode, we'll try to make badgers and mushrooms.
+
+\section{Bonus} 
+Try using the \verb|cursor| command to draw something.  If you
+like what you've drawn, save the \verb|x| and \verb|y| arrays or add them to
+your code and push the code to github.  (Note: don't try to add an IDL .sav
+file to github; binaries are not meant to be kept in repositories).
+
+\end{spacing}
+\end{document}
+
